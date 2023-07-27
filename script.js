@@ -85,6 +85,7 @@ var alarm;
 setAlarmButton.addEventListener("click", function () {
   if (hour.value === "" || minutes.value === "" || seconds.value === "") {
     alert("All the fields are required");
+    return;
   }
   // alarm = {
   //   hour: hour.value,
@@ -100,6 +101,7 @@ setAlarmButton.addEventListener("click", function () {
   minutes.value = "";
   seconds.value = "";
   createAndAppendAlarm();
+  showEmptyMessage();
 });
 
 // Render alarm
@@ -205,9 +207,25 @@ function removeAlarm(alarmValue) {
 // }
 
 function deleteAlarm(event) {
-  console.log(event.target.parentElement.parentElement);
   var alarmToRemove = event.target.parentElement.parentElement;
   var parentAlarm = document.getElementById("parentAlarm");
 
   parentAlarm.removeChild(alarmToRemove);
+
+  showEmptyMessage();
+}
+
+(function () {
+  showEmptyMessage();
+})();
+
+// show empty message
+function showEmptyMessage() {
+  var emptyMsg = document.getElementById("empty-message");
+  var alarmListDiv = document.querySelectorAll(".alarm-list");
+  if (!alarmListDiv || alarmListDiv.length == 0) {
+    emptyMsg.style.display = "block";
+  } else {
+    emptyMsg.style.display = "none";
+  }
 }
