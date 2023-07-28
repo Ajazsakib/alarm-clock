@@ -6,15 +6,15 @@ function digitalClock() {
   var mins = currentTime.getMinutes();
   var sec = currentTime.getSeconds();
   var twelveHourFormat = hours % 12 || 12;
-  var ampm = hours >= 12 ? 'PM' : 'AM';
+  var ampm = hours >= 12 ? "PM" : "AM";
 
   twelveHourFormat =
-    twelveHourFormat >= 10 ? twelveHourFormat : '0' + twelveHourFormat;
-  mins = mins >= 10 ? mins : '0' + mins;
-  sec = sec >= 10 ? sec : '0' + sec;
+    twelveHourFormat >= 10 ? twelveHourFormat : "0" + twelveHourFormat;
+  mins = mins >= 10 ? mins : "0" + mins;
+  sec = sec >= 10 ? sec : "0" + sec;
 
   document.getElementById(
-    'show-current-time'
+    "show-current-time"
   ).innerHTML = `${twelveHourFormat}:${mins}:${sec} ${ampm}`;
 
   globalCurrentTime = `${twelveHourFormat}:${mins}:${sec} ${ampm}`;
@@ -30,11 +30,11 @@ setInterval(digitalClock, 1000);
 
 // catch the input element for entering time
 
-var hour = document.getElementById('hour');
-var minutes = document.getElementById('minutes');
-var seconds = document.getElementById('seconds');
-var ampm = document.getElementById('ampm');
-var setAlarmButton = document.getElementById('set-alarm');
+var hour = document.getElementById("hour");
+var minutes = document.getElementById("minutes");
+var seconds = document.getElementById("seconds");
+var ampm = document.getElementById("ampm");
+var setAlarmButton = document.getElementById("set-alarm");
 
 // Restrict the user that they can only enter numeric value in input field
 function restrictUser(e, callback) {
@@ -46,14 +46,10 @@ function restrictUser(e, callback) {
     e.target.value = inputVal.slice(0, -1);
   }
 
-  //   if (inputVal.length >= 2) {
-  //     e.preventDefault();
-  //     minutes.focus();
-  //   }
   callback(inputVal);
 }
 
-hour.addEventListener('input', function (e) {
+hour.addEventListener("input", function (e) {
   restrictUser(e, function (inputVal) {
     if (inputVal.length >= 2) {
       e.preventDefault();
@@ -61,7 +57,7 @@ hour.addEventListener('input', function (e) {
     }
   });
 });
-minutes.addEventListener('input', function (e) {
+minutes.addEventListener("input", function (e) {
   restrictUser(e, function (inputVal) {
     if (inputVal.length >= 2) {
       e.preventDefault();
@@ -69,7 +65,7 @@ minutes.addEventListener('input', function (e) {
     }
   });
 });
-seconds.addEventListener('input', function (e) {
+seconds.addEventListener("input", function (e) {
   restrictUser(e, function (inputVal) {
     if (inputVal.length >= 2) {
       e.preventDefault();
@@ -82,22 +78,22 @@ seconds.addEventListener('input', function (e) {
 
 var alarmList = [];
 var alarm;
-setAlarmButton.addEventListener('click', function () {
-  if (hour.value === '' || minutes.value === '' || seconds.value === '') {
-    alert('All the fields are required');
+setAlarmButton.addEventListener("click", function () {
+  if (hour.value === "" || minutes.value === "" || seconds.value === "") {
+    alert("All the fields are required");
     return;
   }
   // add 0 as prefix if time value is of only one digit
-  hour.value = hour.value >= 10 ? hour.value : '0' + hour.value;
-  minutes.value = minutes.value >= 10 ? minutes.value : '0' + minutes.value;
-  seconds.value = seconds.value >= 10 ? seconds.value : '0' + seconds.value;
+  hour.value = hour.value >= 10 ? hour.value : "0" + hour.value;
+  minutes.value = minutes.value >= 10 ? minutes.value : "0" + minutes.value;
+  seconds.value = seconds.value >= 10 ? seconds.value : "0" + seconds.value;
   alarm = `${hour.value}:${minutes.value}:${seconds.value} ${ampm.value}`;
 
   alarmList.push(alarm);
 
-  hour.value = '';
-  minutes.value = '';
-  seconds.value = '';
+  hour.value = "";
+  minutes.value = "";
+  seconds.value = "";
   createAndAppendAlarm();
   showEmptyMessage();
 });
@@ -106,56 +102,56 @@ setAlarmButton.addEventListener('click', function () {
 
 function createAndAppendAlarm() {
   // craete parent alarm div
-  var alarmListDiv = document.createElement('div');
-  alarmListDiv.setAttribute('class', 'alarm-list');
+  var alarmListDiv = document.createElement("div");
+  alarmListDiv.setAttribute("class", "alarm-list");
 
-  var showAlarmTimeDiv = document.createElement('div');
+  var showAlarmTimeDiv = document.createElement("div");
 
-  showAlarmTimeDiv.setAttribute('class', 'show-alarm-time');
-  showAlarmTimeDiv.setAttribute('id', 'show-alarm-time');
+  showAlarmTimeDiv.setAttribute("class", "show-alarm-time");
+  showAlarmTimeDiv.setAttribute("id", "show-alarm-time");
 
-  var h4 = document.createElement('h4');
-  h4.setAttribute('class', 'alarm-heading');
+  var h4 = document.createElement("h4");
+  h4.setAttribute("class", "alarm-heading");
   h4.textContent = alarm;
 
   showAlarmTimeDiv.appendChild(h4);
   alarmListDiv.appendChild(showAlarmTimeDiv);
 
-  var deleteBtnDiv = document.createElement('div');
-  deleteBtnDiv.setAttribute('class', 'delete-button');
-  deleteBtnDiv.setAttribute('id', 'delete-button');
+  var deleteBtnDiv = document.createElement("div");
+  deleteBtnDiv.setAttribute("class", "delete-button");
+  deleteBtnDiv.setAttribute("id", "delete-button");
 
-  var deleteButton = document.createElement('button');
+  var deleteButton = document.createElement("button");
 
-  deleteButton.textContent = 'Delete';
-  deleteButton.setAttribute('class', 'btn btn-delete-alarm');
+  deleteButton.textContent = "Delete";
+  deleteButton.setAttribute("class", "btn btn-delete-alarm");
 
   deleteBtnDiv.appendChild(deleteButton);
 
   alarmListDiv.appendChild(deleteBtnDiv);
 
-  document.getElementById('parentAlarm').appendChild(alarmListDiv);
+  document.getElementById("parentAlarm").appendChild(alarmListDiv);
 
   // select all delete button to delete the alarm
-  deleteButton.addEventListener('click', deleteAlarm);
+  deleteButton.addEventListener("click", deleteAlarm);
 }
 
 // convert the time into seconds
 
 function convertTimeIntoSecond(timeString) {
-  var timeComponents = timeString.split(':');
+  var timeComponents = timeString.split(":");
   var hour = parseInt(timeComponents[0]);
   var minute = parseInt(timeComponents[1]);
-  var second = parseInt(timeComponents[2].split(' ')[0]);
-  var period = timeComponents[2].split(' ')[1].toUpperCase();
+  var second = parseInt(timeComponents[2].split(" ")[0]);
+  var period = timeComponents[2].split(" ")[1].toUpperCase();
 
   // Convert hour, minute, and second to seconds
   var totalSeconds = hour * 3600 + minute * 60 + second;
 
   // Adjust for AM/PM
-  if (period === 'PM' && hour !== 12) {
+  if (period === "PM" && hour !== 12) {
     totalSeconds += 12 * 3600;
-  } else if (period === 'AM' && hour === 12) {
+  } else if (period === "AM" && hour === 12) {
     totalSeconds -= 12 * 3600;
   }
 
@@ -174,7 +170,7 @@ function triggerAlarm() {
         let timeDifference = alarmTime - currentTime;
 
         if (timeDifference === 0) {
-          alert(alarmList[i] + '!!!!!!!!!!!!!!!!!!');
+          alert(alarmList[i] + "!!!!!!!!!!!!!!!!!!");
           // remove alarm from the alarm list invoke
           removeAlarm(alarmList[i]);
           alarmList.splice(i, 1);
@@ -186,11 +182,11 @@ function triggerAlarm() {
 
 // remove alarm from alarm list function declaration
 function removeAlarm(alarmValue) {
-  var parentElement = document.getElementById('parentAlarm');
-  var alarms = document.querySelectorAll('.alarm-list');
+  var parentElement = document.getElementById("parentAlarm");
+  var alarms = document.querySelectorAll(".alarm-list");
 
   for (var i = 0; i < alarms.length; i++) {
-    var alarmsHeading = alarms[i].querySelector('h4').textContent;
+    var alarmsHeading = alarms[i].querySelector("h4").textContent;
     if (alarmsHeading == alarmValue) {
       parentElement.removeChild(alarms[i]);
     }
@@ -200,9 +196,17 @@ function removeAlarm(alarmValue) {
 // function to delete alarm fron DOM
 function deleteAlarm(event) {
   var alarmToRemove = event.target.parentElement.parentElement;
-  var parentAlarm = document.getElementById('parentAlarm');
+  var parentAlarm = document.getElementById("parentAlarm");
+
+  var alarmValue = alarmToRemove.firstChild.firstChild.textContent;
 
   parentAlarm.removeChild(alarmToRemove);
+
+  for (var i = 0; i < alarmList.length; i++) {
+    if (alarmList[i] == alarmValue) {
+      alarmList.splice(i, 1);
+    }
+  }
 
   showEmptyMessage();
 }
@@ -215,11 +219,11 @@ function deleteAlarm(event) {
 
 // show empty message
 function showEmptyMessage() {
-  var emptyMsg = document.getElementById('empty-message');
-  var alarmListDiv = document.querySelectorAll('.alarm-list');
+  var emptyMsg = document.getElementById("empty-message");
+  var alarmListDiv = document.querySelectorAll(".alarm-list");
   if (!alarmListDiv || alarmListDiv.length == 0) {
-    emptyMsg.style.display = 'block';
+    emptyMsg.style.display = "block";
   } else {
-    emptyMsg.style.display = 'none';
+    emptyMsg.style.display = "none";
   }
 }
