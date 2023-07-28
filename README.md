@@ -1,6 +1,6 @@
 # Alarm Clock Web App
 
-![Alarm Clock App](alarm_clock_app.png)
+!Alarm Clock App
 
 ## Introduction
 
@@ -21,7 +21,7 @@ The Alarm Clock Web App is a simple and user-friendly application that allows us
 
 ## Demo
 
-You can try out the live demo of the app // jab host karunga tab rakhunga
+You can try out the live demo of the app // https://ajazsakib.github.io/alarm-clock/
 
 ## Installation and Usage
 
@@ -31,3 +31,4 @@ To use the Alarm Clock Web App locally:
    ```bash
    git clone -b master  git@github.com:Ajazsakib/alarm-clock.git
    ```
+   open this directory and double click on index.html file
